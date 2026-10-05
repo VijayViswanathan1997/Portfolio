@@ -24,13 +24,36 @@ const instrument = Instrument_Serif({
   display: "swap",
 });
 
+/**
+ * Absolute URLs for the social card. Vercel supplies the production host, so
+ * this keeps working if the project is renamed or a custom domain is added;
+ * set NEXT_PUBLIC_SITE_URL to pin it to something specific.
+ */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
+const title = `${fullName} — ${profile.role}`;
+const description = profile.headline;
+
 export const metadata: Metadata = {
-  title: `${fullName} — ${profile.role}`,
-  description: profile.tagline,
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  // app/opengraph-image.jpg and app/twitter-image.jpg are picked up automatically.
   openGraph: {
-    title: `${fullName} — ${profile.role}`,
-    description: profile.tagline,
+    title,
+    description,
     type: "website",
+    url: siteUrl,
+    siteName: fullName,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
   },
 };
 
