@@ -19,6 +19,9 @@ export const profile = {
   /** The huge ghosted word behind the figure. */
   heroWord: "VIJAY",
 
+  /** Live URL. Drives the social-card links — update if the domain changes. */
+  siteUrl: "https://portfolio-vijay-sv.vercel.app",
+
   email: "vijaysvviswanathan@gmail.com",
   phone: "+91 78458 33103",
   phoneHref: "+917845833103",

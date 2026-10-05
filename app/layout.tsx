@@ -25,12 +25,16 @@ const instrument = Instrument_Serif({
 });
 
 /**
- * Absolute URLs for the social card. Vercel supplies the production host, so
- * this keeps working if the project is renamed or a custom domain is added;
- * set NEXT_PUBLIC_SITE_URL to pin it to something specific.
+ * Absolute base for the social-card URLs.
+ *
+ * `profile.siteUrl` wins so the card can't silently point at a stale host —
+ * Vercel bakes VERCEL_PROJECT_PRODUCTION_URL in at build time, so a build that
+ * predates a domain change ships the old address and the preview image 404s.
+ * The env vars remain as fallbacks for previews and local work.
  */
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
+  profile.siteUrl ||
+  process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
